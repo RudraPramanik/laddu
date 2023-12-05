@@ -22,7 +22,7 @@ const Home = () => {
   console.log(selectedChoice);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: '#ebdaf7' }}>
       <View style={pages.viewOne}>
         <View style={pages.viewTwo}>
           <HomeHeader />
@@ -48,9 +48,7 @@ const Home = () => {
               <NearbyRestaurants />
               <Divider />
               <Headers heading="Try something new" onPress={() => {}} />
-              {/* <NewFoodList /> */}
-              <FastestNear />
-
+              <NewFoodList />
               <Divider />
               <Headers heading="Faster Near me" onPress={() => {}} />
               <FastestNear />

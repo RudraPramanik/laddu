@@ -15,7 +15,7 @@ const FoodNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="food-page">
       <Stack.Screen
-        name=" food page"
+        name=" food-page"
         component={FoodPage}
         options={{ headerShown: false }}
         initialParams={{ item: item }}
