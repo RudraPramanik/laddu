@@ -24,7 +24,7 @@ const FoodNavigator = () => {
       //   name=" order page"
       //   component={OrderPage}
       //   options={{ headerShown: false, presentation: 'modal' }}
-      //   initialParams={{ item: item }}
+      //   initialParams={{ item: item }} 
       // /> */}
     </Stack.Navigator>
   );
