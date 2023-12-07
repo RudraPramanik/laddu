@@ -12,6 +12,7 @@ const FoodPage = ({ route, navigation }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [restaurant, setRastaurant] = useState(1);
   const [preference, setPreference] = useState('');
+  const [count, setacount] = useState(1);
   // const { cartCount, setCartCount } = useContext(CartCountContext);
   console.log(item);
   return (
@@ -63,7 +64,15 @@ const FoodPage = ({ route, navigation }) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <Text>FoodPage</Text>
+      </View>
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={[styles.title, { color: COLORS.primary }]}>
+            ${(item.price + totalPrice) * count}
+          </Text>
+        </View>
+        <Text style={styles.small}>{item.description}</Text>
       </View>
     </View>
   );
@@ -93,5 +102,20 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
     marginRight: 10,
+  },
+  container: {
+    marginHorizontal: 12,
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 22,
+    fontFamily: 'medium',
+    color: COLORS.black,
+  },
+  small: {
+    fontSize: 13,
+    fontFamily: 'medium',
+    color: COLORS.gray,
+    textAlign: 'justify',
   },
 });
