@@ -13,6 +13,7 @@ import { COLORS, SIZES } from '../constants/theme';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import Counter from '../components/Counter';
 
 const FoodPage = ({ route, navigation }) => {
   const item = route.params.item;
@@ -20,8 +21,8 @@ const FoodPage = ({ route, navigation }) => {
   const [additives, setAdditives] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [restaurant, setRastaurant] = useState(1);
-  const [preference] = useState('');
-  const [count, setacount] = useState(1);
+  const [preference, setPreference] = useState('');
+  const [count, setCount] = useState(1);
   // const { cartCount, setCartCount } = useContext(CartCountContext);
   console.log(item);
   return (
@@ -151,11 +152,21 @@ const FoodPage = ({ route, navigation }) => {
           <TextInput
             placeholder="Add specific instructions"
             value={preference}
-            onChangeText={(value) => setPreference(Value)}
+            onChangeText={(value) => setPreference(value)}
             autoCapitalize={'none'}
             autoCorrect={false}
             style={{ flex: 1 }}
           />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 20,
+          }}
+        >
+          <Text style={[styles.title, { marginBottom: 10 }]}>Quantity</Text>
+          <Counter count={count} setCount={setCount} />
         </View>
       </View>
     </View>
