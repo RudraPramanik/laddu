@@ -12,14 +12,21 @@ const Counter = ({ count, setCount }) => {
   };
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-      <Text>Counter</Text>
+      <Text style={{ marginRight: 8 }}>Counter</Text>
       <AntDesign
         name="minuscircleo"
         size={26}
         onPress={decrement}
         color={COLORS.primary}
       />
-      <Text style={{ fontFamily: 'regular', fontSize: 18, marginTop: 1 }}>
+      <Text
+        style={{
+          marginHorizontal: 4,
+          fontFamily: 'regular',
+          fontSize: 18,
+          marginTop: 1,
+        }}
+      >
         {count}
       </Text>
       <AntDesign
