@@ -1,9 +1,18 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+} from 'react-native';
 import React, { useContext, useState } from 'react';
 import { CartCountContext } from '../context/CartCountContext';
 import { COLORS, SIZES } from '../constants/theme';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const FoodPage = ({ route, navigation }) => {
   const item = route.params.item;
@@ -11,7 +20,7 @@ const FoodPage = ({ route, navigation }) => {
   const [additives, setAdditives] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [restaurant, setRastaurant] = useState(1);
-  const [preference, setPreference] = useState('');
+  const [preference] = useState('');
   const [count, setacount] = useState(1);
   // const { cartCount, setCartCount } = useContext(CartCountContext);
   console.log(item);
@@ -73,6 +82,81 @@ const FoodPage = ({ route, navigation }) => {
           </Text>
         </View>
         <Text style={styles.small}>{item.description}</Text>
+        <FlatList
+          data={item.foodTags}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item}
+          style={{ marginTop: 5 }}
+          horizontal
+          scrollEnabled
+          renderItem={({ item }) => (
+            <View
+              style={{
+                right: 10,
+                marginHorizontal: 10,
+                backgroundColor: COLORS.primary,
+                borderRadius: 8,
+                borderWidth: 2,
+                borderColor: COLORS.gray,
+              }}
+            >
+              <Text style={{ padding: 6, color: COLORS.lightWhite }}>
+                {item}
+              </Text>
+            </View>
+          )}
+        />
+        <Text style={[styles.title, { marginBottom: 10, marginTop: 20 }]}>
+          Additives & Toppings
+        </Text>
+        <FlatList
+          data={item.additives}
+          showsVarticleScrollIndicator={false}
+          keyExtractor={(item) => item.id}
+          style={{ marginTop: 5 }}
+          scrollEnabled
+          renderItem={({ item }) => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: 10,
+
+                // right: 10,
+                // marginHorizontal: 10,
+                // backgroundColor: COLORS.primary,
+                // borderRadius: 8,
+                // borderWidth: 2,
+                // borderColor: COLORS.gray,
+              }}
+            >
+              <BouncyCheckbox
+                size={20}
+                unfillColor="#ffffff"
+                fillColor={COLORS.primary}
+                innerIconStyle={{ borderWidth: 1 }}
+                textStyle={styles.small}
+                text={item.title}
+              />
+              <Text style={{ padding: 6, color: COLORS.primary }}>
+                ${item.price}
+              </Text>
+            </View>
+          )}
+        />
+        <Text style={[styles.title, { marginBottom: 10, marginTop: 20 }]}>
+          Preferences
+        </Text>
+        <View style={styles.input}>
+          <TextInput
+            placeholder="Add specific instructions"
+            value={preference}
+            onChangeText={(value) => setPreference(Value)}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            style={{ flex: 1 }}
+          />
+        </View>
       </View>
     </View>
   );
@@ -117,5 +201,15 @@ const styles = StyleSheet.create({
     fontFamily: 'medium',
     color: COLORS.gray,
     textAlign: 'justify',
+  },
+  input: {
+    borderColor: COLORS.primary,
+    borderWidth: 1,
+    backgroundColor: COLORS.offwhite,
+    height: 50,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
