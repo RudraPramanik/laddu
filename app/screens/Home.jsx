@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { COLORS, SIZES } from '../constants/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import pages from './page.style';
@@ -13,13 +13,15 @@ import Divider from '../components/Divider';
 import NearbyRestaurants from '../components/Shimmers/NearbyRestaurants';
 import NewFoodList from '../components/NewFoodList';
 import FastestNear from '../components/FastestNear';
+import { UserReversedGeoCode } from '../context/UserReversedGeoCode';
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
   const [selectedValue, setSelectedValue] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
-  console.log(selectedChoice);
+  const { address, setAddress } = useContext(UserReversedGeoCode);
+  console.log(address);
 
   return (
     <SafeAreaView style={{ backgroundColor: '#ebdaf7' }}>

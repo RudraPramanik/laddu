@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -25,7 +23,7 @@
       "config": {
         "package": "com.dacarnage.foodly",
         "googleMaps": {
-          "apiKey": ""
+          "apiKey": "AIzaSyCF17FZ4NisGF0icJa0BpsAWzT3OtEPXAw"
         }
       },
       "permissions": [
@@ -34,7 +32,6 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.dacarnage.expofire"
-      
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -186,7 +186,7 @@ const FoodPage = ({ route, navigation }) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => navigation.navigate('order-page')}
                 style={{
                   backgroundColor: COLORS.primary,
                   paddingHorizontal: 80,

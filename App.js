@@ -8,8 +8,13 @@ import FoodNavigator from './app/navigation/FoodNavigator';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Location from 'expo-location';
 import BottomTab from './app/navigation/BottomTab';
+import { UserLocationContext } from './app/context/UserLocationContext';
+import { UserReversedGeoCode } from './app/context/UserReversedGeoCode';
+
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState(null);
   const defaultAddresss = {
     city: 'Shanghai',
     country: 'China',
@@ -38,25 +43,33 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
+  useEffect(() => {
+    setAddress(defaultAddresss);
+  }, []);
+
   if (!fontsLoaded) {
     // Return a loading indicator or splash screen while fonts are loading or app is initializing
     return;
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="bottom-navigation"
-          component={BottomTab}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="food-nav"
-          component={FoodNavigator}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserLocationContext.Provider value={(location, setLocation)}>
+      <UserReversedGeoCode.Provider value={(address, setAddress)}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="bottom-navigation"
+              component={BottomTab}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="food-nav"
+              component={FoodNavigator}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserReversedGeoCode.Provider>
+    </UserLocationContext.Provider>
   );
 }

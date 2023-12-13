@@ -4,6 +4,7 @@ import FoodPage from '../screens/FoodPage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useRoute } from '@react-navigation/native';
 import { ScreenStack } from 'react-native-screens';
+import OrderPage from '../screens/OrderPage';
 // import OrderPage form '../screens/OrderPage'
 
 const Stack = createNativeStackNavigator();
@@ -20,12 +21,11 @@ const FoodNavigator = () => {
         options={{ headerShown: false }}
         initialParams={{ item: item }}
       />
-      {/* // <Stack.Screen
-      //   name=" order page"
-      //   component={OrderPage}
-      //   options={{ headerShown: false, presentation: 'modal' }}
-      //   initialParams={{ item: item }} 
-      // /> */}
+      <Stack.Screen
+        name="order-page"
+        component={OrderPage}
+        options={{ headerShown: false, presentation: 'modal' }}
+      />
     </Stack.Navigator>
   );
 };
