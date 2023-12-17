@@ -7,7 +7,7 @@ import {
   View,
   TextInput,
 } from 'react-native';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartCountContext } from '../context/CartCountContext';
 import { COLORS, SIZES } from '../constants/theme';
 import {
@@ -28,7 +28,62 @@ const FoodPage = ({ route, navigation }) => {
   const [preference, setPreference] = useState('');
   const [count, setCount] = useState(1);
   // const { cartCount, setCartCount } = useContext(CartCountContext);
-  console.log(item);
+  const id = item.restaurent;
+  const handleAdditives = (newAdditive) => {
+    setAdditives((prevAdditives) => {
+      const exist = prevAdditives.some(
+        (additive) => additive.id === newAdditive.id
+      );
+      if (exist) {
+        return prevAdditives.filter(
+          (additive) => additive.id !== newAdditive.id
+        );
+      } else {
+        return [...prevAdditives, newAdditive];
+      }
+    });
+  };
+
+  let sendToOrderPage;
+  sendToOrderPage = {
+    orderItem: {
+      foodId: item._id,
+      additives: additives,
+      quantity: count,
+      totalPrice: (item.price + totalPrice) * count,
+      instructions: preference,
+    },
+    title: item.title,
+    description: item.description,
+    imageUrl: item.imageUrl[0],
+    restaurant: id,
+  };
+
+  const handlePress = (item) => {
+    const cartItem = {
+      productId: item._id,
+      additives: additives,
+      quantity: count,
+      totalPrice: (item.price + totalPrice) * count,
+    };
+    addToCart(cartItem);
+  };
+
+  const addToCart = async (cartItem) => {};
+
+  useEffect(() => {
+    calculatedPrice();
+  }, [additives]);
+
+  const calculatedPrice = () => {
+    const total = additives.reduce((sum, additives) => {
+      return sum + parseFloat(additives.price);
+    }, 0);
+    setTotalPrice(total);
+  };
+
+  // console.log(item);
+  console.log(additives);
   return (
     <View style={{ backgroundColor: COLORS.lightWhite, height: SIZES.height }}>
       <View>
@@ -142,6 +197,9 @@ const FoodPage = ({ route, navigation }) => {
                 innerIconStyle={{ borderWidth: 1 }}
                 textStyle={styles.small}
                 text={item.title}
+                onPress={() => {
+                  handleAdditives(item);
+                }}
               />
               <Text style={{ padding: 6, color: COLORS.primary }}>
                 ${item.price}
@@ -186,7 +244,9 @@ const FoodPage = ({ route, navigation }) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('order-page')}
+                onPress={() =>
+                  navigation.navigate('order-page', sendToOrderPage)
+                }
                 style={{
                   backgroundColor: COLORS.primary,
                   paddingHorizontal: 80,
