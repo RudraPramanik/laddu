@@ -3,8 +3,10 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import uidata from '../../constants/uidata';
 import StoreComponent from './StoreComponent';
+import { useNavigation } from '@react-navigation/native';
 
 const NearbyRestaurants = () => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -18,7 +20,10 @@ const NearbyRestaurants = () => {
         scrollEnabled
         style={{ marginTop: 5, rowGap: 10 }}
         renderItem={({ item }) => (
-          <StoreComponent onPress={() => {}} item={item} />
+          <StoreComponent
+            onPress={() => navigation.navigate('rastaurant', item)}
+            item={item}
+          />
         )}
       />
     </View>

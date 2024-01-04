@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, useWindowDimensions, StyleSheet, Text } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 
 const FirstRoute = () => (
@@ -10,18 +10,24 @@ const SecondRoute = () => (
   <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
 );
 
+const ThirdRoute = () => (
+  <View style={{ flex: 1, backgroundColor: '#67300' }} />
+);
+
 const renderScene = SceneMap({
   first: FirstRoute,
   second: SecondRoute,
+  third: ThirdRoute,
 });
 
-export default function RestaurentPage() {
+const RestaurantPage = () => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
+    { key: 'first', title: 'MENU' },
+    { key: 'second', title: 'DIRECTIONS' },
+    { key: 'third', title: 'NEW' },
   ]);
 
   return (
@@ -32,6 +38,6 @@ export default function RestaurentPage() {
       initialLayout={{ width: layout.width }}
     />
   );
-}
+};
 
-const styles = StyleSheet.create({});
+export default RestaurantPage;
