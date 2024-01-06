@@ -21,7 +21,7 @@ const Home = () => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
   const { address, setAddress } = useContext(UserReversedGeoCode);
-  console.log(address);
+  // console.log('address', address);
 
   return (
     <SafeAreaView style={{ backgroundColor: '#ebdaf7' }}>

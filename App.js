@@ -17,6 +17,8 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState(null);
+  const [error, setErrorMsg] = useState(null);
+
   const defaultAddresss = {
     city: 'Shanghai',
     country: 'China',
@@ -46,7 +48,15 @@ export default function App() {
   }, [fontsLoaded]);
 
   useEffect(() => {
-    setAddress(defaultAddresss);
+    (async () => {
+      setAddress(defaultAddresss);
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location denied');
+      }
+      let location = (await Location) / Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
   }, []);
 
   if (!fontsLoaded) {
@@ -54,9 +64,11 @@ export default function App() {
     return;
   }
 
+  console.log(location, 'location');
+
   return (
-    <UserLocationContext.Provider value={(location, setLocation)}>
-      <UserReversedGeoCode.Provider value={(address, setAddress)}>
+    <UserLocationContext.Provider value={{ location, setLocation }}>
+      <UserReversedGeoCode.Provider value={{ address, setAddress }}>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import RestaurantPage from '../RestaurantPage';
 import NetworkImage from '../../components/NetworkImage';
 import { SIZES, COLORS } from '../../constants/theme';
@@ -12,11 +12,19 @@ import {
   MaterialCommunityIcons,
   AntDesign,
 } from '@expo/vector-icons';
+import GoogleApiServices from '../../hook/GoogleApiServices';
+import { UserLocationContext } from '../../context/UserLocationContext';
 
 const Restaurant = ({ navigation }) => {
   const route = useRoute();
+  const { location, setLocation } = useContext(UserLocationContext);
   const item = route.params;
-  console.log(item);
+  console.log(item.coords.latitude, item.coords.longitude);
+  console.log(location);
+
+  //   useEffect(() => {
+  //     GoogleApiServices.calculateDistanceAndTime();
+  //   }, []);
 
   return (
     <View>
@@ -78,6 +86,26 @@ const Restaurant = ({ navigation }) => {
 
       <View style={{ marginTop: 8, marginHorizontal: 8, marginBottom: 10 }}>
         <Text style={styles.title}>{item.title}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={[styles.title3, { color: COLORS.gray }]}>Distance</Text>
+          <Text style={[styles.title3, { fontFamily: 'regular' }]}>
+            {item.title}
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={[styles.title3, { color: COLORS.gray }]}>
+            prep and delivery time
+          </Text>
+          <Text style={[styles.title3, { fontFamily: 'regular' }]}>
+            {item.title}
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={[styles.title3, { color: COLORS.gray }]}>Cost</Text>
+          <Text style={[styles.title3, { fontFamily: 'regular' }]}>
+            {item.title}
+          </Text>
+        </View>
       </View>
       <View style={{ height: 400 }}>
         <RestaurantPage />
@@ -113,6 +141,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'medium',
     color: COLORS.lightWhite,
+  },
+  title3: {
+    fontSize: 13,
+    fontFamily: 'medium',
   },
   rating: {
     height: 50,
